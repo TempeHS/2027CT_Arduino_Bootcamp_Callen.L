@@ -47,6 +47,8 @@ void loop() {
   delay(1000);  // Wait 1 second each cycle
   Serial.println("Ready to run and get cooking potatoes :D");
   Serial.print("I am printing a value beside here: ");
-  Serial.println(42);  // Print the value of 42 to the serial monitor
+  Serial.println("42");  // Print the value of 42 to the serial monitor
+  Serial.println("Hmm \n Bonus");
+  Serial.println();  // Print a blank line to the serial monitor
 }
 
