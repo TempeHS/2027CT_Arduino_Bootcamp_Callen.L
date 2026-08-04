@@ -35,6 +35,18 @@ void setup() {
 }
 
 void loop() {
+  // SOMEBODY SAID THAT HE LIKES ORANGES 🍊🍊🍊
+
+  /*
+    I was bored so i put this extra large comment.
+    This is one another lonely comment that is here to make the code look more interesting.
+
+    // I put a comment inside of a comment LOL :D
+  */
+
   delay(1000);  // Wait 1 second each cycle
   Serial.println("Ready to run and get cooking potatoes :D");
+  Serial.print("I am printing a value beside here: ");
+  Serial.println(42);  // Print the value of 42 to the serial monitor
 }
+
