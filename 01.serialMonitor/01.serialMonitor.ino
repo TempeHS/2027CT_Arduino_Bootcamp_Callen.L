@@ -1,5 +1,5 @@
 /*
-  Author:
+  Author: Callen Lin
 
   Learning Intention:
   The students will understand the difference between the inbuilt setup and loop methods,
@@ -26,6 +26,28 @@
   Documentation:
     https://www.arduino.cc/reference/en/language/functions/communication/serial/
     https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-serial-plotter
+*/
+
+/*
+  The goal of this project is:
+
+  RUNNING THE SKETCH:
+  1. Understand that void setup() runs only at the start of the program
+  2. Understand that void loop() runs repeatedly after setup() has finished
+
+  STARTING THE SKETCH:
+  3. Understand that Serial.begin(115200) starts the serial communication at 115200 baud
+
+  PRINTING TO THE SERIAL MONITOR:
+  4. Understand that Serial.print() prints to the serial monitor without a new line
+  5. Understand that Serial.println() prints to the serial monitor with a new line
+
+  PAUSING THE SKETCH:
+  6. Understand that delay(1000) pauses the program for 1000 milliseconds
+
+  MAKING COMMENTS IN THE CODE:
+  7. Understand that comments are ignored by the compiler and are for humans to read
+  8. Understand that single-line comments start with // and multi-line comments start with /*
 */
 
 // The setup function runs once when you press reset or power the board
