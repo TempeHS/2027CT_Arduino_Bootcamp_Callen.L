@@ -29,7 +29,7 @@
 */
 
 /*
-  The goal of this project is:
+  Goals of the lesson:
 
   RUNNING THE SKETCH:
   1. Understand that void setup() runs only at the start of the program

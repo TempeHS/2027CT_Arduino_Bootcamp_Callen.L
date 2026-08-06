@@ -1,5 +1,5 @@
 /*
-  Author:
+  Author: Callen Lin
 
   Learning Intention:
   The students will learn the different data types used in the C++ language,
@@ -21,12 +21,39 @@
     https://www.arduino.cc/reference/en/language/variables/data-types/stringobject/
 */
 
-int counter = 0;   // declared OUTSIDE any function
+/*
+  Goals of the lesson:
+  1. Learn the different types of Type Systems in C++ and how to use them
+
+  | Variable Type    | What it stores  | Range                            | Size      |
+  | -----------------|-----------------|----------------------------------|-----------|
+  | 1. int           | whole numbers   |  -32,768 to 32,767               |  2 bytes  |
+  | 2. unsigned int  | whole numbers   |  0 to 65,535                     |  2 bytes  |
+  | 3. long          | whole numbers   |  -2,147,483,648 to 2,147,483,647 |  4 bytes  |
+  | 4. unsigned long | whole numbers   |  0 to 4,294,967,295              |  4 bytes  |
+  | 5. float         | decimal numbers |  7 digits of precision           |  4 bytes  |
+  | 6. bool          | true or false   |  1 or 0                          |  1 byte   |
+  | 7. String        | text            |  limited by memory               |  Varies   |
+
+  2. Bool specifics
+  Meaning On:     true, HIGH, 1
+  Meaning False:  false, LOW, 0
+
+  3. Global and local scopes
+  Global scopes are variables that are declared outside of any function and can be used anywhere!
+  Local scopes are variables that are declared inside a function and can only be used inside that function.
+
+  4. Integer overflow
+  When a variable is incremented past its maximum value, it will "wrap around" to the minimum value.
+  For example, if an int variable is incremented past 32,767, it will wrap around to -32,768. This is called integer overflow.
+*/
+
+  int counter = 0;
+
 
 void setup() {
   Serial.begin(115200);
   Serial.println("Starting counter demo");
-  int counter = 0;
   counter = 100;
 }
 
