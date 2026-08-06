@@ -63,7 +63,7 @@ void loop() {
 
   delay(1000);
 
-    int zone = reading / 25;    // whole-number division: gives 0, 1, 2 or 3
+  int zone = reading / 25;    // whole-number division: gives 0, 1, 2 or 3
 
   switch (zone) {
     case 0:
