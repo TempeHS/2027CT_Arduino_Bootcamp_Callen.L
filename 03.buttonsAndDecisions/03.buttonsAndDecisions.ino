@@ -36,47 +36,58 @@
     https://www.arduino.cc/reference/en/#structure
     https://www.arduino.cc/reference/en/language/functions/digital-io/digitalread/
 */
+
+/*
+  Goals of the lesson:
+
+  Learning C++ Syntax and Fundamentals:
+  1. const (constant)
+  This is a variable that can not be changed after it is declared.
+  We use "digitalRead(BUTTON_PIN);" and all we need to update is const int "BUTTON_PIN = 7;" to change pins.
+
+  2. Function Parameters
+  Functions that require two different pieces of information. Its like when you are ordering coffee, you need to tell it size and milk.
+  An example includes "pinMode(LED_PIN, OUTPUT);".
+
+  3. Return Values
+  Functions that return a value aka gives something back.
+  "int buttonState = digitalRead(BUTTON_PIN);" is a example where Arduino reads the values like english and using digitalRead and to store it in a variable.
+
+  4. Decision Making
+  Using if, if else, and switch/case structures to make decisions based on conditions.
+  if checks if the condition is true and if its false, it will go to the next step else if (same as elif in python) if applicable, and else is the catch it all if none is true before.
+
+  5. Comparison Operators
+  This shows the relationship between two values and returns a boolean value (true or false).
+  | Operator | Full Name                | Meaning                                                             | Example               | Result                                    |
+  | -------- | ------------------------ | ------------------------------------------------------------------- | --------------------- | ----------------------------------------- |
+  | ==       | Equal to                 | Checks if two values are the same.                                  | `buttonState == HIGH` | `true` if `buttonState` is `HIGH`         |
+  | !=       | Not equal to             | Checks if two values are different.                                 | `buttonState != HIGH` | `true` if `buttonState` is **not** `HIGH` |
+  | <        | Less than                | Checks if the left value is smaller than the right.                 | `temperature < 20`    | `true` if `temperature` is below 20       |
+  | <=       | Less than or equal to    | Checks if the left value is smaller than **or equal to** the right. | `temperature <= 20`   | `true` if `temperature` is 20 or less     |
+  | >        | Greater than             | Checks if the left value is larger than the right.                  | `distance > 100`      | `true` if `distance` is above 100         |
+  | >=       | Greater than or equal to | Checks if the left value is larger than **or equal to** the right.  | `battery >= 50`       | `true` if `battery` is 50 or higher       |
+
+  6. The legendary Assign and Compare sign.
+  | Operator | Meaning                                                          |
+  | -------- | ---------------------------------------------------------------- |
+  | ==       | Compares two values and returns a boolean value (true or false). |
+  | =        | Assigns a value to a variable.                                   |
+
+
+  This touches one of the most important things... Don't Repeat Yourself (DRY).
+*/
+
 const int BUTTON_PIN = 4;  // Grove Button on D4
 const int LED_PIN = 6;     // Grove LED on D6
 
 void setup() {
-  pinMode(LED_PIN, OUTPUT);
-  pinMode(BUTTON_PIN, INPUT);   // this pin will RECEIVE signals
-  Serial.begin(115200);
+  pinMode(LED_PIN, OUTPUT);     // this pin will SEND signals
 }
 
-
 void loop() {
-  int reading = random(0, 100);
-  Serial.print("Reading: ");
-  Serial.println(reading);
-
-  if (reading > 80) {
-    Serial.println("  VERY HIGH");
-  } else if (reading > 50) {
-    Serial.println("  HIGH");
-  } else if (reading > 20) {
-    Serial.println("  MEDIUM");
-  } else {
-    Serial.println("  LOW");
-  }
-
+  digitalWrite(LED_PIN, HIGH);  // 5 volts on the pin: LED on
   delay(1000);
-
-  int zone = reading / 25;    // whole-number division: gives 0, 1, 2 or 3
-
-  switch (zone) {
-    case 0:
-      Serial.print("\nzone 0: lowest quarter");
-      break;
-    case 1:
-      Serial.print("\nzone 1: second lowest quarter");
-      break;
-    case 2:
-      Serial.print("\nzone 2: second highest quarter");
-      break;
-    default:
-      Serial.print("\nzone 3: highest quarter");
-      break;
-  }
+  digitalWrite(LED_PIN, LOW);   // 0 volts: LED off
+  delay(1000);
 }
