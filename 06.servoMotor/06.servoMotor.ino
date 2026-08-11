@@ -49,3 +49,17 @@ void loop() {
   myServo.write(angle);
   delay(15);
 }
+
+void smoothMove(int fromAngle, int toAngle) {
+  if (fromAngle < toAngle) {
+    for (int a = fromAngle; a <= toAngle; a++) {
+      myServo.write(a);
+      delay(15);
+    }
+  } else {
+    for (int a = fromAngle; a >= toAngle; a--) {
+      myServo.write(a);
+      delay(15);
+    }
+  }
+}
