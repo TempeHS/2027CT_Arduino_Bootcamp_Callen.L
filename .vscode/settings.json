@@ -19,8 +19,8 @@
   "workbench.editorAssociations": {
     "*.md": "vscode.markdown.preview.editor"
   },
-  "workbench.colorTheme": "Dark+",
-  "workbench.iconTheme": "vscode-icons",
+  "workbench.colorTheme": "Catppuccin Macchiato",
+  "workbench.iconTheme": "catppuccin-macchiato",
   "github.copilot.enable": {
     "*": true,
     "plaintext": false,

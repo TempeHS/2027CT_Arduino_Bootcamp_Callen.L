@@ -48,8 +48,12 @@
   For example, if an int variable is incremented past 32,767, it will wrap around to -32,768. This is called integer overflow.
 */
 
-  int counter = 0;
+/*
 
+  Quick commands from this lesson.
+
+*/
+int counter = 0;
 
 void setup() {
   Serial.begin(115200);

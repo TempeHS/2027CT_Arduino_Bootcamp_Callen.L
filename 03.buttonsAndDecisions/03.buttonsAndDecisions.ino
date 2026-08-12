@@ -74,8 +74,20 @@
   | ==       | Compares two values and returns a boolean value (true or false). |
   | =        | Assigns a value to a variable.                                   |
 
-
   This touches one of the most important things... Don't Repeat Yourself (DRY).
+*/
+
+/*
+  Useful quick codes:
+
+  int buttonState = digitalRead(BUTTON_PIN);
+  That returns a HIGH or LOW value. You can then use that variable in an if statement to make decisions.
+
+  if (buttonState == HIGH) {
+    // do something if the button is pressed
+  } else {
+    // do something if the button is not pressed
+  }
 */
 
 const int BUTTON_PIN = 4;  // Grove Button on D4
@@ -83,6 +95,7 @@ const int LED_PIN = 6;     // Grove LED on D6
 
 void setup() {
   pinMode(LED_PIN, OUTPUT);     // this pin will SEND signals
+  pinMode(BUTTON_PIN, INPUT);   // this pin will RECEIVE signals
 }
 
 void loop() {
