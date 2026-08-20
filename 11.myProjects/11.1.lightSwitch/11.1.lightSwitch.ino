@@ -9,38 +9,27 @@
   3. Suggested Grove ports: Button D4, Potentiometer A0, LED D6, Light sensor A3
 */
 
-const int LIGHT_PIN = A3;
-const int BUZZER_PIN = 5;
+const int POT_PIN = A0;
+const int BUZZER_PIN = A2;  // Grove Sound sensor on A2
 const int LED_PIN = 6;
-
-unsigned long startTime = 0;
 
 void setup() {
   pinMode(LED_PIN, OUTPUT);
-  pinMode(BUZZER_PIN, OUTPUT);
-  Serial.begin(115200);
 }
 
 void loop() {
-  int lightValue = analogRead(LIGHT_PIN);
+  int potValue = analogRead(POT_PIN);
 
-  Serial.println(lightValue);
+  int LED_VALUE = map(potValue, 0, 1023, 0, 255);
 
-  if (lightValue > 1) {
-
-    if (startTime == 0) {
-      startTime = millis();
-    }
-
-    if (millis() - startTime > 10000) {
-      digitalWrite(LED_PIN, HIGH);
-      tone(BUZZER_PIN, 1000);
-    }
-
-  }
-  else {
-    startTime = 0;
-    digitalWrite(LED_PIN, LOW);
+  if (LED_VALUE == 128) {
+    analogWrite(LED_PIN, 200);
     noTone(BUZZER_PIN);
   }
+  else {
+    analogWrite(LED_PIN, 0);
+    tone(BUZZER_PIN, 1000);
+  }
+
+  delay(10);
 }
