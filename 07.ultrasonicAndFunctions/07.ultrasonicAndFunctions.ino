@@ -41,25 +41,21 @@
 const int BUZZER_PIN = 5;  // Grove Buzzer on D5
 const int LED_PIN = 6;     // Grove LED on D6
 
+Ultrasonic ultrasonic(2);   // Grove 3-pin sensor: trigger and echo share D2
+
 int readDistance() {
   return ultrasonic.read();
 }
 
 int classifyZone(int distance, int nearLimit, int farLimit) {
   if (distance < nearLimit) {
-    digitalWrite(LED_PIN, HIGH);  // 5 volts on the pin: LED on
     return 0;              // danger
-
   } else if (distance < farLimit) {
-    digitalWrite(LED_PIN, HIGH);  // 5 volts on the pin: LED on
-    digitalWrite(LED_PIN, LOW);   // 0 volts: LED off
     return 1;              // warning
   }
-    digitalWrite(LED_PIN, LOW);   // 0 volts: LED off
   return 2;                // safe
 }
 
-Ultrasonic ultrasonic(2);   // Grove 3-pin sensor: trigger and echo share D2
 
 void setup() {
   Serial.begin(115200);
