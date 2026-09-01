@@ -1,3 +1,49 @@
+int loopCounter = 0; // Initialize loopCounter
+
+void setup() {
+
+  Serial.begin(115200);
+
+  Serial.println("The Arduino is ready to run!");
+  delay(1000);
+  Serial.println("Starting...");
+
+  Serial.println("========================================");
+  delay(1000);
+
+}
+
+void loop() {
+
+  Serial.println(); // Blank Line
+
+  Serial.println("Loop is running...");
+  Serial.print("Next to this number you can see how much this loop has run: "); // Same Line for Next Text
+
+  loopCounter+=1;
+  Serial.println(loopCounter);
+
+  Serial.println("And now we continue.");
+
+  delay(1500); // Loop every 1.5s
+
+}
+
+/*
+  The sketch above is a refined version of the original.
+
+  Containing a few white spaces for readability purposes and better structure :P
+  I personally use camelCase over snake_case since I code quite frequently in Swift.
+*/
+
+
+
+
+
+
+
+
+
 /*
   Author: Callen Lin
 
@@ -47,31 +93,7 @@
 
   MAKING COMMENTS IN THE CODE:
   7. Understand that comments are ignored by the compiler and are for humans to read
-  8. Understand that single-line comments start with // and multi-line comments start with /*
+  8. Understand that single-line comments start with // and multi-line comments start with /* and ends wth * / (have to leave space due to syntax)
+
+  Yep, I spent time refining this code over here :D
 */
-
-// The setup function runs once when you press reset or power the board
-void setup() {
-  Serial.begin(115200);                  // Start talking to the computer at 115200 baud
-  Serial.println("Arduino ready!");    // When does this line print? During the start.
-}
-
-void loop() {
-  // SOMEBODY SAID THAT HE LIKES ORANGES 🍊🍊🍊 (this is a single line note)
-
-  /*
-    I was bored so i put this extra large comment.
-    This is one another lonely comment that is here to make the code look more interesting.
-
-    // I put a comment inside of a comment LOL :D
-    (this is a multi-line comment)
-  */
-
-  delay(1000);  // Wait 1 second each cycle
-  Serial.println("Ready to run and get cooking potatoes :D");
-  Serial.print("I am printing a value beside here: ");
-  Serial.println("42");  // Print the value of 42 to the serial monitor
-  Serial.println("Hmm \n Bonus");
-  Serial.println();  // Print a blank line to the serial monitor
-}
-
