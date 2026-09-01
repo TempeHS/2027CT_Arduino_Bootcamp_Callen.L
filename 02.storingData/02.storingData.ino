@@ -1,3 +1,85 @@
+int numberAchievementTen = 10;
+
+long firstRandomNumber = random(100);
+long secondRandomNumber = random(100);
+
+void setup() {
+
+  Serial.begin(115200);
+  randomSeed(analogRead(A0));
+
+  Serial.println();
+  Serial.println("========================================");
+  Serial.println("Beginning Program...");
+  Serial.println("Welcome to the Random Number Game where you have to wait till the two random numbers match.");
+  delay(5000);
+
+  Serial.println();
+  Serial.println("Generating Your Random Numbers...");
+  Serial.println();
+  delay(2000);
+
+  Serial.println("Your First Random Number Is: " + String(firstRandomNumber));
+  delay(2000);
+
+  Serial.println("Your Second Random Number Is: " + String(secondRandomNumber));
+  delay(2000);
+
+  Serial.println("========================================");
+
+  delay(1500);
+
+}
+
+void loop() {
+
+  Serial.println();
+  Serial.println("Do they match?");
+  delay(2000);
+
+  if (firstRandomNumber == secondRandomNumber) {
+    Serial.println("Congratulations! You won.");
+    while (true) {}
+  } else {
+    Serial.println("No.");
+    Serial.println();
+  }
+
+  delay(2000);
+
+  firstRandomNumber = random(100);
+  secondRandomNumber = random(100);
+
+  Serial.println("Rerolling the random numbers...");
+  delay(2000);
+
+  Serial.println(
+    "Your First Random Number Is: " + String(firstRandomNumber) + "\n" +
+    "Your Second Random Number Is: " + String(secondRandomNumber)
+  );
+
+  delay(2000);
+  if (firstRandomNumber == numberAchievementTen || secondRandomNumber == numberAchievementTen) {
+    Serial.println("You hit the secret number " + String(numberAchievementTen) + "!");
+  }
+  delay(2000);
+}
+
+
+
+
+
+
+
+
+
+/*
+  The sketch above is a refined version of the original.
+
+  Containing a few white spaces for readability purposes and better structure :P
+  I personally use camelCase over snake_case since I code quite frequently in Swift.
+*/
+
 /*
   Author: Callen Lin
 
@@ -47,22 +129,3 @@
   When a variable is incremented past its maximum value, it will "wrap around" to the minimum value.
   For example, if an int variable is incremented past 32,767, it will wrap around to -32,768. This is called integer overflow.
 */
-
-/*
-
-  Quick commands from this lesson.
-
-*/
-int counter = 0;
-
-void setup() {
-  Serial.begin(115200);
-  Serial.println("Starting counter demo");
-  counter = 100;
-}
-
-void loop() {
-  counter = counter + 1;         // loop() can use it too
-  Serial.println(counter);
-  delay(500);
-}
