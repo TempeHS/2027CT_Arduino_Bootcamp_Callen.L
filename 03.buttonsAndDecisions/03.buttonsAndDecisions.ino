@@ -29,31 +29,31 @@ void loop() {
   if (buttonState == HIGH) {
 
     digitalWrite(LED_PIN, HIGH);
-    
-    if ((millis() - milisecondsTracker >= 10000) && !highMessageSent) {
-      Serial.println("Why are you holding it for so long?? Good question.");
-      highMessageSent = true;
+
+    Serial.println("Button pressed: LED on");
+
+    while (buttonState == HIGH) {
+      if ((millis() - milisecondsTracker >= 5000) && !highMessageSent) {
+        Serial.println("Why are you holding it for so long?? Good question.");
+        highMessageSent = true;
+      }
     }
 
   } else {
 
     digitalWrite(LED_PIN, LOW);
-    
-    if ((millis() - milisecondsTracker >= 10000) && !lowMessageSent) {
-      Serial.println("Hmm... why don't you press the button?");
-      lowMessageSent = true;
+
+    Serial.println("Button released: LED off");
+
+    while (buttonState == LOW) {
+      if ((millis() - milisecondsTracker >= 5000) && !lowMessageSent) {
+        Serial.println("Hmm... why don't you press the button?");
+        lowMessageSent = true;
+      }
     }
 
   }
 }
-
-
-
-
-
-
-
-
 
 /*
   Author:
