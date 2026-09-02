@@ -1,3 +1,62 @@
+// Yep! I added more functions to this lol.
+
+const int BUTTON_PIN = 4;
+const int LED_PIN = 6;
+
+unsigned long milisecondsTracker = 0;
+
+void setup() {
+  pinMode(LED_PIN, OUTPUT);
+  pinMode(BUTTON_PIN, INPUT);
+
+  Serial.begin(115200);
+}
+
+void loop() {
+  int buttonState = digitalRead(BUTTON_PIN);
+
+  milisecondsTracker = millis();
+
+  if (buttonState == HIGH) {
+
+    digitalWrite(LED_PIN, HIGH);
+    Serial.println("Button pressed: LED on");
+
+    while (digitalRead(BUTTON_PIN) == HIGH) {
+      // Stops the print until the button is released
+      milisecondsTracker = 0;
+
+     while (millis() - milisecondsTracker < 10000) {
+        Serial.println("Why are you holding it for so long?? Good question.");
+      }
+
+    }
+
+  } else {
+
+    digitalWrite(LED_PIN, LOW);
+    Serial.println("Button released: LED off");
+
+    while (digitalRead(BUTTON_PIN) == LOW) {
+      // Stops the print until the button is released
+
+      while (millis() - milisecondsTracker < 10000) {
+        Serial.println("Hmm... why don't you press the button?");
+      }
+
+      milisecondsTracker = 0;
+    }
+
+  }
+}
+
+
+
+
+
+
+
+
 /*
   Author:
 
@@ -36,7 +95,6 @@
     https://www.arduino.cc/reference/en/#structure
     https://www.arduino.cc/reference/en/language/functions/digital-io/digitalread/
 */
-
 /*
   Goals of the lesson:
 
@@ -76,7 +134,6 @@
 
   This touches one of the most important things... Don't Repeat Yourself (DRY).
 */
-
 /*
   Useful quick codes:
 
@@ -89,18 +146,3 @@
     // do something if the button is not pressed
   }
 */
-
-const int BUTTON_PIN = 4;  // Grove Button on D4
-const int LED_PIN = 6;     // Grove LED on D6
-
-void setup() {
-  pinMode(LED_PIN, OUTPUT);     // this pin will SEND signals
-  pinMode(BUTTON_PIN, INPUT);   // this pin will RECEIVE signals
-}
-
-void loop() {
-  digitalWrite(LED_PIN, HIGH);  // 5 volts on the pin: LED on
-  delay(1000);
-  digitalWrite(LED_PIN, LOW);   // 0 volts: LED off
-  delay(1000);
-}
