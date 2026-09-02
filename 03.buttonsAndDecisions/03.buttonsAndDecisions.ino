@@ -5,50 +5,48 @@ const int LED_PIN = 6;
 
 unsigned long milisecondsTracker = 0;
 
+bool highMessageSent = false;
+bool lowMessageSent = false;
+
+int lastButtonState = LOW;
+
 void setup() {
   pinMode(LED_PIN, OUTPUT);
   pinMode(BUTTON_PIN, INPUT);
-
   Serial.begin(115200);
 }
 
 void loop() {
   int buttonState = digitalRead(BUTTON_PIN);
 
-  milisecondsTracker = millis();
+  if (buttonState != lastButtonState) {
+    milisecondsTracker = millis();
+    highMessageSent = false;
+    lowMessageSent = false;
+    lastButtonState = buttonState;
+  }
 
   if (buttonState == HIGH) {
 
     digitalWrite(LED_PIN, HIGH);
-    Serial.println("Button pressed: LED on");
-
-    while (digitalRead(BUTTON_PIN) == HIGH) {
-      // Stops the print until the button is released
-      milisecondsTracker = 0;
-
-     while (millis() - milisecondsTracker < 10000) {
-        Serial.println("Why are you holding it for so long?? Good question.");
-      }
-
+    
+    if ((millis() - milisecondsTracker >= 10000) && !highMessageSent) {
+      Serial.println("Why are you holding it for so long?? Good question.");
+      highMessageSent = true;
     }
 
   } else {
 
     digitalWrite(LED_PIN, LOW);
-    Serial.println("Button released: LED off");
-
-    while (digitalRead(BUTTON_PIN) == LOW) {
-      // Stops the print until the button is released
-
-      while (millis() - milisecondsTracker < 10000) {
-        Serial.println("Hmm... why don't you press the button?");
-      }
-
-      milisecondsTracker = 0;
+    
+    if ((millis() - milisecondsTracker >= 10000) && !lowMessageSent) {
+      Serial.println("Hmm... why don't you press the button?");
+      lowMessageSent = true;
     }
 
   }
 }
+
 
 
 
