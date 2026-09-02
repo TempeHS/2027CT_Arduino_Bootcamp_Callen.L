@@ -1,4 +1,5 @@
 int numberAchievementTen = 10;
+int numberCounter = 0;
 
 long firstRandomNumber = random(100);
 long secondRandomNumber = random(100);
@@ -29,13 +30,17 @@ void setup() {
 
   delay(1500);
 
+  numberCounter++;
+
 }
 
 void loop() {
 
+  numberCounter++;
+
   Serial.println();
   Serial.println("Do they match?");
-  delay(2000);
+  delay(1000);
 
   if (firstRandomNumber == secondRandomNumber) {
     Serial.println("Congratulations! You won.");
@@ -45,12 +50,13 @@ void loop() {
     Serial.println();
   }
 
-  delay(2000);
+  delay(500);
 
   firstRandomNumber = random(100);
   secondRandomNumber = random(100);
 
-  Serial.println("Rerolling the random numbers...");
+  Serial.println("Attempt " + String(numberCounter) + ": Rerolling the random numbers...");
+
   delay(2000);
 
   Serial.println(
@@ -58,11 +64,12 @@ void loop() {
     "Your Second Random Number Is: " + String(secondRandomNumber)
   );
 
-  delay(2000);
+  delay(1500);
+
   if (firstRandomNumber == numberAchievementTen || secondRandomNumber == numberAchievementTen) {
     Serial.println("You hit the secret number " + String(numberAchievementTen) + "!");
   }
-  delay(2000);
+
 }
 
 
