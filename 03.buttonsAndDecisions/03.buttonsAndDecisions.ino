@@ -1,5 +1,3 @@
-// Yep! I added more functions to this lol.
-
 const int BUTTON_PIN = 4;
 const int LED_PIN = 6;
 
@@ -24,36 +22,31 @@ void loop() {
     highMessageSent = false;
     lowMessageSent = false;
     lastButtonState = buttonState;
+
+    if (buttonState == HIGH) {
+      digitalWrite(LED_PIN, HIGH);
+      Serial.println("Button pressed: LED on");
+    } else {
+      digitalWrite(LED_PIN, LOW);
+      Serial.println("Button released: LED off");
+    }
   }
 
   if (buttonState == HIGH) {
-
-    digitalWrite(LED_PIN, HIGH);
-
-    Serial.println("Button pressed: LED on");
-
-    while (buttonState == HIGH) {
-      if ((millis() - milisecondsTracker >= 5000) && !highMessageSent) {
-        Serial.println("Why are you holding it for so long?? Good question.");
-        highMessageSent = true;
-      }
+    if ((millis() - milisecondsTracker >= 5000) && !highMessageSent) {
+      Serial.println("Why are you holding it for so long?? Good question.");
+      highMessageSent = true;
     }
-
   } else {
-
-    digitalWrite(LED_PIN, LOW);
-
-    Serial.println("Button released: LED off");
-
-    while (buttonState == LOW) {
-      if ((millis() - milisecondsTracker >= 5000) && !lowMessageSent) {
-        Serial.println("Hmm... why don't you press the button?");
-        lowMessageSent = true;
-      }
+    if ((millis() - milisecondsTracker >= 5000) && !lowMessageSent) {
+      Serial.println("Hmm... why don't you press the button?");
+      lowMessageSent = true;
     }
-
+    
   }
+  
 }
+
 
 /*
   Author:
