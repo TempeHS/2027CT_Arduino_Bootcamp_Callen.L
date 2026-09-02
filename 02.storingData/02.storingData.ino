@@ -50,7 +50,7 @@ void loop() {
     Serial.println();
   }
 
-  delay(500);
+  delay(1000);
 
   firstRandomNumber = random(100);
   secondRandomNumber = random(100);
