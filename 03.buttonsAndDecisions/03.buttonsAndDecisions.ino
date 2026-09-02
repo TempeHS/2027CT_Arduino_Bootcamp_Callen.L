@@ -12,6 +12,11 @@ void setup() {
   pinMode(LED_PIN, OUTPUT);
   pinMode(BUTTON_PIN, INPUT);
   Serial.begin(115200);
+
+  Serial.println("========================================");
+  Serial.println("Mr Ridiculous's Button and LED Controller");
+  Serial.println("========================================");
+
 }
 
 void loop() {
@@ -25,26 +30,30 @@ void loop() {
 
     if (buttonState == HIGH) {
       digitalWrite(LED_PIN, HIGH);
+      Serial.println();
       Serial.println("Button pressed: LED on");
     } else {
       digitalWrite(LED_PIN, LOW);
+      Serial.println();
       Serial.println("Button released: LED off");
     }
+
   }
 
   if (buttonState == HIGH) {
-    if ((millis() - milisecondsTracker >= 5000) && !highMessageSent) {
+    if ((millis() - milisecondsTracker >= 2500) && !highMessageSent) {
       Serial.println("Why are you holding it for so long?? Good question.");
       highMessageSent = true;
     }
-  } else {
-    if ((millis() - milisecondsTracker >= 5000) && !lowMessageSent) {
+  }
+
+  else {
+    if ((millis() - milisecondsTracker >= 2500) && !lowMessageSent) {
       Serial.println("Hmm... why don't you press the button?");
       lowMessageSent = true;
     }
-    
   }
-  
+
 }
 
 
