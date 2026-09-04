@@ -1,3 +1,12 @@
+
+void setup() {
+
+}
+
+void loop() {
+
+}
+
 /*
   Author:
 
@@ -19,11 +28,3 @@
     https://www.youtube.com/watch?v=S_uaROFnWSg
     https://youtu.be/cUVryWbVkXk
 */
-
-void setup() {
-
-}
-
-void loop() {
-
-}

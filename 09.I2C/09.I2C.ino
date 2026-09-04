@@ -1,3 +1,22 @@
+
+
+#include "Arduino_SensorKit.h"
+
+void setup() {
+  Serial.begin(115200);
+  Accelerometer.begin();
+}
+
+void loop() {
+  Serial.print("x:");
+  Serial.print(Accelerometer.readX());
+  Serial.print("  y:");
+  Serial.print(Accelerometer.readY());
+  Serial.print("  z:");
+  Serial.println(Accelerometer.readZ());
+  delay(500);
+}
+
 /*
   Author:
 
@@ -43,20 +62,3 @@
     https://sensorkit.arduino.cc/
     https://www.arduino.cc/reference/en/language/functions/communication/wire/
 */
-
-#include "Arduino_SensorKit.h"
-
-void setup() {
-  Serial.begin(115200);
-  Accelerometer.begin();
-}
-
-void loop() {
-  Serial.print("x:");
-  Serial.print(Accelerometer.readX());
-  Serial.print("  y:");
-  Serial.print(Accelerometer.readY());
-  Serial.print("  z:");
-  Serial.println(Accelerometer.readZ());
-  delay(500);
-}

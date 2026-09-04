@@ -1,3 +1,12 @@
+
+void setup() {
+
+}
+
+void loop() {
+
+}
+
 /*
   Author:
 
@@ -37,11 +46,3 @@
     Direction after swapping the wires:
     Why real designs need a motor controller:
 */
-
-void setup() {
-
-}
-
-void loop() {
-
-}
