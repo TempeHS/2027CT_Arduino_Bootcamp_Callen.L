@@ -1,3 +1,10 @@
+/*
+  Author: Callen Lin
+
+  The program below picks 2 random numbers and will continue rolling random numbers until both numbers matches.
+  There is also a secret number of ten where hitting it gives a custom notification.
+*/
+
 int numberAchievementTen = 10;
 int numberCounter = 0;
 
