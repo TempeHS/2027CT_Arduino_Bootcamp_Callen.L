@@ -1,3 +1,14 @@
+/*
+  Author: Callen Lin
+
+  The program below setups the program and starts counting up by 1 every 1.5 seconds.
+
+  The sketch above is a refined version of the original.
+
+  Containing a few white spaces for readability purposes and better structure :P
+  I personally use camelCase over snake_case since I code quite frequently in Swift.
+*/
+
 int loopCounter = 0; // Initialize loopCounter
 
 void setup() {
@@ -28,21 +39,6 @@ void loop() {
   delay(1500); // Loop every 1.5s
 
 }
-
-/*
-  The sketch above is a refined version of the original.
-
-  Containing a few white spaces for readability purposes and better structure :P
-  I personally use camelCase over snake_case since I code quite frequently in Swift.
-*/
-
-
-
-
-
-
-
-
 
 /*
   Author: Callen Lin

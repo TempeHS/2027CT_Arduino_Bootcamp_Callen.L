@@ -1,24 +1,29 @@
-
 #include <Servo.h>
 
 const int TRIG_PIN = 2;
-const int ECHO_PIN = 2;
+const int ECHO_PIN = 4;
 const int SERVO_PIN = 3;
+
+const int CLOSED = 90;
+const int OPEN = 180;
+const int DETECTION_DISTANCE = 20;
+
+const unsigned long DELAYER2000 = 2000;
 
 Servo gateServo;
 
-void setup() {
-  Serial.begin(9600);
+enum GateState {
+  CLOSED,
+  OPEN,
+  WAIT
+};
 
-  gateServo.attach(SERVO_PIN);
+GateState gateState = CLOSED;
 
-  gateServo.write(90);
+unsigned long clearStartTime = 0;
 
-  pinMode(TRIG_PIN, OUTPUT);
-  pinMode(ECHO_PIN, INPUT);
-}
 
-void loop() {
+float getDistance() {
   digitalWrite(TRIG_PIN, LOW);
   delayMicroseconds(2);
 
@@ -30,14 +35,75 @@ void loop() {
 
   float distance = duration * 0.0343 / 2;
 
+  return distance;
+}
+
+
+void setup() {
+  Serial.begin(9600);
+
+  gateServo.attach(SERVO_PIN);
+  gateServo.write(CLOSED);
+
+  pinMode(TRIG_PIN, OUTPUT);
+  pinMode(ECHO_PIN, INPUT);
+}
+
+
+void loop() {
+  float distance = getDistance();
+
   Serial.print("Distance: ");
   Serial.print(distance);
   Serial.println(" cm");
 
-  if (distance > 0 && distance < 20) {
-    gateServo.write(180);
-  } else {
-    gateServo.write(90);
+  bool vehicleDetected =
+    distance > 0 && distance < DETECTION_DISTANCE;
+
+
+  switch (gateState) {
+
+    case CLOSED:
+
+      if (vehicleDetected) {
+        gateServo.write(OPEN);
+        gateState = OPEN;
+
+        Serial.println("Yo its Mr Vehicle - OPEN SESAME!!!!");
+      }
+
+      break;
+
+
+    case OPEN:
+
+      if (!vehicleDetected) {
+        clearStartTime = millis();
+        gateState = WAIT;
+
+        Serial.println("Mr Vehicle - Beep... Beep... Beep...");
+      }
+
+      break;
+
+
+    case WAIT:
+
+      if (vehicleDetected) {
+        gateServo.write(OPEN);
+        gateState = OPEN;
+
+        Serial.println("Mr Vehicle Still here? - STAY OPEN!!!!");
+      }
+
+      else if (millis() - clearStartTime >= DELAYER2000) {
+        gateServo.write(CLOSED);
+        gateState = CLOSED;
+
+        Serial.println("No one around... - hmm... CLOSED");
+      }
+
+      break;
   }
 
   delay(100);
