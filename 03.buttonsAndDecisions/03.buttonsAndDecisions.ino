@@ -1,3 +1,12 @@
+/*
+  Author: Callen Lin
+
+  A gloriously over-engineered button controller that gives you unsolicited life advice whenever you
+  hold—or fail to press—a button for 2.5 seconds.
+
+  Note: Get a photo of the thing and upload it eventually.
+*/
+
 const int BUTTON_PIN = 4;
 const int LED_PIN = 6;
 
