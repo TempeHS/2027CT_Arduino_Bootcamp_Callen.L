@@ -6,6 +6,19 @@
   1. Turning a knob makes the LED dim (which is oddly contradictory),
   2. The buzzer scream at increasingly higher pitches as your turn it up HIGHER!, and
   3. The Serial Monitor undergo a full-blown existential crisis about basic mathematics and how you set the potentiometer.
+
+  INSERT A AMAZING PHOTO OF THE PROJECT SOMEWHERE!
+*/
+
+/*
+  I kinda needa do this so I put this here.
+
+  Sensor          Min seen   Max seen   How I tested
+  Potentiometer   0.         1023       full turn each way
+  Light sensor    ...        ...        covered / phone torch
+  Sound sensor    ...        ...        quiet room / clapping
+
+  TODO: I am a bit lazy putting this here btw.
 */
 
 const int POT_PIN = A0;    // Grove Potentiometer on A0
@@ -15,6 +28,7 @@ const int BUZZER_PIN = 5;  // Grove Buzzer on D5 (PWM)
 // Why does these two lines need to exist. To be honest, I'm not sure 🤷‍♂️.
 const int SOUND_PIN = A2;  // Grove Sound sensor on A2
 const int LIGHT_PIN = A3;  // Grove Light sensor on A3
+// Well I just gave it a purpose
 
 void setup() {
   pinMode(LED_PIN, OUTPUT);
@@ -101,13 +115,27 @@ void loop() {
   }
 
   // LEDs must go dimmer as the POT_PIN gets higher. Why is it contradictory. Cause its necessary.
-  int value = analogRead(POT_PIN);
   int ledBrightness = map(value, 0, 1023, 255, 0);
   analogWrite(LED_PIN, ledBrightness);
 
   // Of course we need to put a buzzerPitch cause it is ALSO necessary.
   int buzzerPitch = map(value, 0, 1023, 100, 2000);
   tone(BUZZER_PIN, buzzerPitch);
+
+  Serial.println("");
+
+  Serial.println("Let's talk about light and sound: ");
+  delay(50);
+  Serial.println("Why exactly, ask this guy -> 🗑️");
+  delay(50);
+  int lightValue = analogRead(LIGHT_PIN);
+  Serial.println(lightValue);
+  delay(50);
+  int soundValue = analogRead(SOUND_PIN);
+  Serial.println(soundValue);
+  delay(50);
+
+  Serial.println("");
 
   delay(50);
 }
