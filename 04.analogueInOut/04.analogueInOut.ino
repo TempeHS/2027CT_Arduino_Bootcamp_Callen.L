@@ -1,4 +1,124 @@
 /*
+  Author: Callen Lin
+
+  A completely unnecessary but necessary Arduino experiment where:
+
+  1. Turning a knob makes the LED dim (which is oddly contradictory),
+  2. The buzzer scream at increasingly higher pitches as your turn it up HIGHER!, and
+  3. The Serial Monitor undergo a full-blown existential crisis about basic mathematics and how you set the potentiometer.
+*/
+
+const int POT_PIN = A0;    // Grove Potentiometer on A0
+const int LED_PIN = 6;     // Grove LED on D6 (PWM)
+const int BUZZER_PIN = 5;  // Grove Buzzer on D5 (PWM)
+
+// Why does these two lines need to exist. To be honest, I'm not sure 🤷‍♂️.
+const int SOUND_PIN = A2;  // Grove Sound sensor on A2
+const int LIGHT_PIN = A3;  // Grove Light sensor on A3
+
+void setup() {
+  pinMode(LED_PIN, OUTPUT);
+  pinMode(BUZZER_PIN, OUTPUT);
+  Serial.begin(115200);
+
+  Serial.println("========================================");
+  Serial.println("WHEN CHAOS MEETS POTENTIOMETER: INTERROGATION TIME!!!!!!!");
+  Serial.println("========================================");
+  Serial.println("Beginning investigation...");
+  delay(1000);
+  Serial.println("Please provide a number. But you can't");
+  delay(1000);
+  Serial.println("The potentiometer has been notified.");
+  delay(1000);
+
+  Serial.println("Before we do so, let's do some math.");
+  delay(1000);
+  Serial.println("7 / 2");
+  delay(100);
+
+  Serial.println(7 / 2);                 // prediction: 3
+  delay(100);
+  Serial.println("7.0 / 2");
+  delay(100);
+
+  Serial.println(7.0 / 2);               // prediction: 3.5
+  delay(100);
+  Serial.println("2 + 3 * 4");
+  delay(100);
+
+  Serial.println(2 + 3 * 4);             // prediction: 14
+  delay(100);
+  Serial.println("(2 + 3) * 4");
+  delay(100);
+
+  Serial.println((2 + 3) * 4);           // prediction: 20
+  delay(100);
+  Serial.println("7 % 3");
+  delay(100);
+
+  Serial.println(7 % 3);                 // prediction: 1
+  delay(100);
+
+  Serial.println("Why was it done?");
+  delay(500);
+
+  Serial.println("Cause its absolutely necessary.");
+  delay(1000);
+}
+
+
+void loop() {
+  int value = analogRead(POT_PIN);
+
+  Serial.println();
+  Serial.println("OMG! NEW POTENTIOMETER VALUE DETECTED.");
+  Serial.print("The number is: ");
+  Serial.println(value);
+
+  if (value == 0) {
+    Serial.println("You have somehow chosen NOTHING.");
+  }
+
+  else if (value < 256) {
+    Serial.println("The potentiometer is feeling rather low.");
+  }
+
+  else if (value < 512) {
+    Serial.println("We are approaching the middle.");
+  }
+
+  else if (value < 768) {
+    Serial.println("We have exceeded the middle.");
+  }
+
+  else if (value < 1023) {
+    Serial.println("This is getting suspiciously high.");
+  }
+
+  else {
+    Serial.println("MAXIMUM POTENTIOMETER POWER ACHIEVED.");
+    Serial.println("There is nowhere left to go.");
+  }
+
+  // LEDs must go dimmer as the POT_PIN gets higher. Why is it contradictory. Cause its necessary.
+  int value = analogRead(POT_PIN);
+  int ledBrightness = map(value, 0, 1023, 255, 0);
+  analogWrite(LED_PIN, ledBrightness);
+
+  // Of course we need to put a buzzerPitch cause it is ALSO necessary.
+  int buzzerPitch = map(value, 0, 1023, 100, 2000);
+  tone(BUZZER_PIN, buzzerPitch);
+
+  delay(50);
+}
+
+
+
+
+
+
+
+/*
   Author:
 
   Learning Intention:
@@ -34,41 +154,3 @@
     https://www.arduino.cc/reference/en/language/functions/math/map/
     https://en.cppreference.com/w/cpp/language/operator_precedence
 */
-
-const int POT_PIN = A0;    // Grove Potentiometer on A0
-const int SOUND_PIN = A2;  // Grove Sound sensor on A2
-const int LIGHT_PIN = A3;  // Grove Light sensor on A3
-const int LED_PIN = 6;     // Grove LED on D6 (PWM)
-const int BUZZER_PIN = 5;  // Grove Buzzer on D5 (PWM)
-
-void setup() {
-  Serial.begin(115200);                  // Start talking to the computer at 115200 baud
-  pinMode(LED_PIN, OUTPUT); // add
-  Serial.println("Arduino ready!");      // When does this line print?
-  Serial.println(7 / 2);                 // prediction: ?
-  Serial.println(7.0 / 2);               // prediction: ?
-  Serial.println(2 + 3 * 4);             // prediction: ?
-  Serial.println((2 + 3) * 4);           // prediction: ?
-  Serial.println(7 % 3);                 // prediction:
-}
-
-void loop() {
-  digitalWrite(LED_PIN, HIGH);  // 5 volts on the pin: LED on
-  delay(1000);
-  digitalWrite(LED_PIN, LOW);   // 0 volts: LED off
-  delay(1000);
-  analogWrite(LED_PIN, 0);
-  delay(1000);
-  analogWrite(LED_PIN, 64);    // 25 percent duty
-  delay(1000);
-  analogWrite(LED_PIN, 127);   // 50 percent duty
-  delay(1000);
-  analogWrite(LED_PIN, 255);   // always on
-  delay(1000);
-  tone(BUZZER_PIN, 262);   // middle C
-  delay(250);
-  tone(BUZZER_PIN, 523);   // C an octave up
-  delay(250);
-  noTone(BUZZER_PIN);      // silence
-  delay(100000000000000000000000000);
-}
