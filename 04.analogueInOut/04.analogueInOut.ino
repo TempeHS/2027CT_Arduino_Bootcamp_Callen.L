@@ -118,14 +118,7 @@ void setup() {
 
 void loop() {
   int value = analogRead(POT_PIN);
-
-  // LEDs must go dimmer as the POT_PIN gets higher. Why is it contradictory. Cause its necessary.
-  int ledBrightness = map(value, 0, 1023, 255, 0);
-  analogWrite(LED_PIN, ledBrightness);
-
-  // Of course we need to put a buzzerPitch cause it is ALSO necessary.
-  int buzzerPitch = map(value, 0, 1023, 100, 2000);
-  tone(BUZZER_PIN, buzzerPitch);
+  int ledBrightness = map(value, 0, 1023, 255, 0); //for definiting the LED:
 
   Serial.println("");
   Serial.println();
@@ -159,6 +152,13 @@ void loop() {
     Serial.println("MAXIMUM POTENTIOMETER POWER ACHIEVED.");
     Serial.println("There is nowhere left to go.");
   }
+
+  // Of course we need to put a buzzerPitch cause it is ALSO necessary.
+  int buzzerPitch = map(value, 0, 1023, 100, 2000);
+  tone(BUZZER_PIN, buzzerPitch);
+
+  // LEDs must go dimmer as the POT_PIN gets higher. Why is it contradictory. Cause its necessary.
+  analogWrite(LED_PIN, ledBrightness);
 
   delay(1000);
 }
