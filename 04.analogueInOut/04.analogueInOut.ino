@@ -46,22 +46,19 @@
 */
 
 /*
-  I kinda needa do this so I put this here.
-
+  # MARK: RESULTS TABLE!
   Sensor          Min seen   Max seen   How I tested
-  Potentiometer   0.         1023       full turn each way
-  Light sensor    ...        ...        covered / phone torch
-  Sound sensor    ...        ...        quiet room / clapping
-
-  TODO: I am a bit lazy putting this here btw.
+  Potentiometer   0          1023       full turn each way
+  Light sensor    20         758        covered with garment / put under LED lighting
+  Sound sensor    20         834        quiet room / whistling
 */
 
 const int POT_PIN = A0;    // Grove Potentiometer on A0
 const int LED_PIN = 6;     // Grove LED on D6 (PWM)
 const int BUZZER_PIN = 5;  // Grove Buzzer on D5 (PWM)
+const int SOUND_PIN = A2;  // Grove Sound sensor on A2
 
 // Why does these two lines need to exist. To be honest, I'm not sure 🤷‍♂️.
-const int SOUND_PIN = A2;  // Grove Sound sensor on A2
 const int LIGHT_PIN = A3;  // Grove Light sensor on A3
 // Well I just gave it a purpose
 
@@ -112,7 +109,10 @@ void setup() {
   delay(500);
 
   Serial.println("Cause its absolutely necessary.");
-  delay(1000);
+  delay(500);
+
+  Serial.println("========================================");
+  delay(2000);
 }
 
 
@@ -159,18 +159,5 @@ void loop() {
 
   Serial.println("");
 
-  Serial.println("Let's talk about light and sound: ");
-  delay(50);
-  Serial.println("Why exactly, ask this guy -> 🗑️");
-  delay(50);
-  int lightValue = analogRead(LIGHT_PIN);
-  Serial.println(lightValue);
-  delay(50);
-  int soundValue = analogRead(SOUND_PIN);
-  Serial.println(soundValue);
-  delay(50);
-
-  Serial.println("");
-
-  delay(50);
+  delay(2000);
 }
