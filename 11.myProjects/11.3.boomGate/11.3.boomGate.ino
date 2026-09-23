@@ -9,67 +9,116 @@
   3. Suggested Grove ports: Ultrasonic D2 (single signal pin), Servo D3
 */
 
-// WIP
-
 #include <Servo.h>
+#include "Ultrasonic.h"
 
-const int TRIG_PIN = 2;
-const int ECHO_PIN = 4;
+const int ULTRASONIC_PIN = 2;
 const int SERVO_PIN = 3;
 
 const int DETECTION_DISTANCE = 20;
 
-const unsigned long DELAYER2000 = 2000;
+const int CLOSED_ANGLE = 0;
+const int OPEN_ANGLE = 90;
 
+const unsigned long CLEAR_DELAY = 1;
+const unsigned long SERVO_INTERVAL = 1;
+
+Ultrasonic ultrasonic(ULTRASONIC_PIN);
 Servo gateServo;
 
 enum GateState {
   CLOSED,
+  OPENING,
   OPEN,
-  WAIT
+  WAIT,
+  CLOSING
 };
 
 GateState gateState = CLOSED;
 
 unsigned long clearStartTime = 0;
+unsigned long servoTimer = 0;
 
+int gateAngle = CLOSED_ANGLE;
 
 float getDistance() {
-  digitalWrite(TRIG_PIN, LOW);
-  delayMicroseconds(2);
 
-  digitalWrite(TRIG_PIN, HIGH);
-  delayMicroseconds(10);
-  digitalWrite(TRIG_PIN, LOW);
+  return ultrasonic.read();
 
-  long duration = pulseIn(ECHO_PIN, HIGH);
+}
 
-  float distance = duration * 0.0343 / 2;
+void setGateAngle(int targetAngle) {
 
-  return distance;
+  if (gateAngle < targetAngle) {
+    gateAngle++;
+  }
+
+  else if (gateAngle > targetAngle) {
+    gateAngle--;
+  }
+
+  gateServo.write(gateAngle);
 }
 
 
 void setup() {
-  Serial.begin(9600);
+
+  Serial.begin(115200);
 
   gateServo.attach(SERVO_PIN);
-  gateServo.write(CLOSED);
+  gateServo.write(CLOSED_ANGLE);
 
-  pinMode(TRIG_PIN, OUTPUT);
-  pinMode(ECHO_PIN, INPUT);
+  Serial.println("========================================");
+  Serial.println("THE LEGENDARYBOOM GATE FOR MR VEHICLE");
+  Serial.println("========================================");
 }
 
 
 void loop() {
-  float distance = getDistance();
 
-  Serial.print("Distance: ");
-  Serial.print(distance);
-  Serial.println(" cm");
+  unsigned long currentTime = millis();
+
+  float distance = getDistance();
 
   bool vehicleDetected =
     distance > 0 && distance < DETECTION_DISTANCE;
+
+  if (currentTime - servoTimer >= SERVO_INTERVAL) {
+
+    servoTimer = currentTime;
+
+    if (gateState == OPENING) {
+
+      setGateAngle(OPEN_ANGLE);
+
+      if (gateAngle == OPEN_ANGLE) {
+        gateState = OPEN;
+
+        Serial.println("Gate fully open.");
+      }
+    }
+
+    else if (gateState == CLOSING) {
+      if (vehicleDetected) {
+
+        gateState = OPENING;
+
+        Serial.println("Vehicle detected during closing! Reopening gate.");
+
+      }
+
+      else {
+
+        setGateAngle(CLOSED_ANGLE);
+
+        if (gateAngle == CLOSED_ANGLE) {
+          gateState = CLOSED;
+
+          Serial.println("No one around... CLOSED.");
+        }
+      }
+    }
+  }
 
 
   switch (gateState) {
@@ -77,45 +126,76 @@ void loop() {
     case CLOSED:
 
       if (vehicleDetected) {
-        gateServo.write(OPEN);
-        gateState = OPEN;
+
+        gateState = OPENING;
 
         Serial.println("Yo its Mr Vehicle - OPEN SESAME!!!!");
       }
 
       break;
 
+    case OPENING:
+      break;
 
     case OPEN:
 
       if (!vehicleDetected) {
-        clearStartTime = millis();
+        clearStartTime = currentTime;
         gateState = WAIT;
-
-        Serial.println("Mr Vehicle - Beep... Beep... Beep...");
+        Serial.println("Yo Mr Vehicle is here! OPEN UP!");
       }
 
       break;
-
 
     case WAIT:
 
       if (vehicleDetected) {
-        gateServo.write(OPEN);
+
         gateState = OPEN;
 
-        Serial.println("Mr Vehicle Still here? - STAY OPEN!!!!");
+        Serial.println("Mr Vehicle Still here? Uh. STAY OPEN!!!!");
       }
 
-      else if (millis() - clearStartTime >= DELAYER2000) {
-        gateServo.write(CLOSED);
-        gateState = CLOSED;
+      else if (currentTime - clearStartTime >= CLEAR_DELAY) {
 
-        Serial.println("No one around... - hmm... CLOSED");
+        gateState = CLOSING;
+
+        Serial.println("Closing da gate.");
       }
 
       break;
+
+    case CLOSING:
+      break;
   }
 
-  delay(100);
+
+  Serial.print("Distance: ");
+  Serial.print(distance);
+  Serial.print(" cm | Current State: ");
+
+  switch (gateState) {
+
+    case CLOSED:
+      Serial.println("CLOSED");
+      break;
+
+    case OPENING:
+      Serial.println("OPENING");
+      break;
+
+    case OPEN:
+      Serial.println("OPEN");
+      break;
+
+    case WAIT:
+      Serial.println("WAIT");
+      break;
+
+    case CLOSING:
+      Serial.println("CLOSING");
+      break;
+  }
+
+  delay(25);
 }

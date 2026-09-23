@@ -145,15 +145,6 @@ void loop() {
 
   bool newDoorState = lightLevel > doorOpenThreshold;
 
-  /*
-  // For the temperature and humidity sensor and OLED display
-  readSensor();
-  updateDisplay();
-  checkAlert();
-
-  delay(250);
-  */
-
   if (newDoorState != doorIsOpen) {
 
     doorIsOpen = newDoorState;
@@ -222,4 +213,13 @@ void loop() {
     Serial.print("\talarm:");
     Serial.println(alarmIsActive);
   }
+
+  /*
+  // For the temperature and humidity sensor and OLED display
+  readSensor();
+  updateDisplay();
+  checkAlert();
+
+  delay(250);
+  */
 }
