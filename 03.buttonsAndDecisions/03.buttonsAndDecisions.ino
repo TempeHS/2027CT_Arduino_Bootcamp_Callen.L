@@ -38,6 +38,73 @@
 */
 
 /*
+  # MARK: Else If Chains
+  To create multiple elses if, you must have a conditions linked to each, starting with a if and ending with an else.
+
+  example usage:
+  if (condition1) {
+    // is condition1 true?
+  } else if (condition2) {
+    // is condition2 true?
+  } else {
+    // well if none of the ones above is true, lets run this one!
+  }
+*/
+
+/*
+  # MARK: Case and Break Statements
+
+  Case = A variable that is tested against the main variable. If it matches the value next to case, it runs!
+  Break = Stop running the code inside the switch!
+  Default = The code that is identical to else above.
+
+  example usage:
+  switch (variable) {
+    case value1:
+      // is variable == value1?
+      break;
+    case value2:
+      // is variable == value2?
+      break;
+    default:
+      // none of the cases matched. aw man.
+  }
+*/
+
+/*
+  # MARK: Comparison Operators
+  ==  (equal to)
+  !=  (not equal to)
+  <   (less than)
+  <=  (less than or equal to)
+  >   (greater than)
+  >=  (greater than or equal to)
+
+  Note = literally means to switch the variable to something else. Please don't make this mistake somewhere future callen.
+*/
+
+/*
+  # MARK: AND OR NOT Operators (boolean operators)
+
+  || means (or)
+  && means means (and)
+  ! means (not)
+
+  example usage:
+  if (condition1 && condition2) {
+    // do it if both conditions are true
+  }
+
+  if (condition1 || condition2) {
+    // do it if either one is true
+  }
+
+  if (!condition1) {
+    // do it if the condition is false
+  }
+*/
+
+/*
   A gloriously over-engineered button controller that gives you unsolicited life advice whenever you
   hold—or fail to press—a button for 2.5 seconds.
 
