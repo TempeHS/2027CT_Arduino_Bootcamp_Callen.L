@@ -44,6 +44,32 @@
     https://www.arduino.cc/reference/en/language/functions/communication/wire/
 */
 
+// MARK: Primary Code
+#include "Arduino_SensorKit.h"
+#include <Wire.h>
+
+#define Environment Environment_I2C
+
+float temperature;
+float humidity;
+
+void setup() {
+  Wire.begin();
+  Serial.begin(115200);
+
+  Environment.begin();
+  Oled.begin();
+  Oled.setFlipMode(true);
+}
+
+void loop() {
+  readSensor();
+  updateDisplay();
+  checkAlert();
+
+  delay(250);
+}
+
 
 // MARK: ARCHIVED EXPERIMENTS BELOW
 
