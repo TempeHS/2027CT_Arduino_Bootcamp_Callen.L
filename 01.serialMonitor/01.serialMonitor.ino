@@ -19,7 +19,6 @@
   Large comments are used like this one composed of //, / and * (well can't do the last one here or this breaks lol)
   I can also print text using Serial.println (print new line) and Serial.print (print on the same line).
 
-  Commit
 */
 
 int loopCounter = 0; // Initialize loopCounter

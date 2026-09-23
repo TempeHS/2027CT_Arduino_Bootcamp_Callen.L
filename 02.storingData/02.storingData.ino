@@ -3,6 +3,51 @@
 
   The program below picks 2 random numbers and will continue rolling random numbers until both numbers matches.
   There is also a secret number of ten where hitting it gives a custom notification.
+
+  I finally learnt the "// MARK - Example" alternative on VScode over Xcode lol.
+*/
+
+/*
+  // MARK: Storing Data on Arduino
+  There are different forms of data types in C++ such as int, long, float, bool, and String.
+  They are used to store different types of information
+
+  | Data Type              | What it stores  | Range                            | Size       | Notes                                   |
+  | -----------------------|-----------------|----------------------------------|------------|-----------------------------------------|
+  | bool (boolean)         | true or false   | true or false                    |  1 byte    | Use for if conditions                   |
+  | int (integer)          | whole numbers   |  -32,768 to 32,767               |  2 bytes   | Use for non-decimal whole numbers       |
+  | long (long integer)    | whole numbers   |  -2,147,483,648 to 2,147,483,647 |  4 bytes   | Use for large non-decimal whole numbers |
+  | float (floating point) | decimal numbers |  6 digits of precision           |  4 bytes   | Use for decimal numbers                 |
+  | String (text)          | text            |  Depends                         |  N/A       | Use for storing text                    |
+  NOTE: To indicate ON on bool "true / HIGH / 1" is the same, and OFF is "false / LOW / 0". No difference.
+
+  Unsigned Values
+  | Data Type                             | What it stores  | Range              | Size     | Notes                                   |
+  | --------------------------------------|-----------------|--------------------|----------|-----------------------------------------|
+  | Unsigned int (unsigned integer)       | whole numbers   | 0 to 65,535        | 2 bytes  | Large numbers :O.                       |
+  | Unsigned long (unsigned long integer) | whole numbers   | 0 to 4,294,967,295 | 4 bytes  | Amazing for timers                      |
+  Note: They allow you to use A LOT larger numbers but the only con is that you can't use negative numbers.
+
+  The different size of different is very important as a Arduino UNO only has so much RAM.
+  Geeked out: has 2,048 bytes of RAM available for storing variables and data.
+
+  That means if you use long 512x, you run of RAM, but then if they can be int, you can use them twice more!
+
+  To use it you simply declare in:
+  [DATA TYPE] [VARIABLE NAME] = [INITIAL VALUE];
+
+  That's it!
+*/
+
+/*
+  // MARK: Global and Local Scope
+  A cool thing about Arduino is it has a thing called variable scopes. A variable can be either:
+
+  1. A global scope: The variable is accessible from anywhere in the code.
+  2. A local scope: The variable is only accessible within the function it is declared in.
+
+  A global scope is used when we want to store the data for the entire duration of the program.
+  A local scope is used when we want to store the data temporarily.
 */
 
 int numberAchievementTen = 10;
