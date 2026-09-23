@@ -1,14 +1,5 @@
-
-void setup() {
-
-}
-
-void loop() {
-
-}
-
 /*
-  Author:
+  Author: Callen Lin
 
   Learning Intention:
   The students will direct-wire a simple DC motor, observe how polarity sets the
@@ -46,3 +37,15 @@ void loop() {
     Direction after swapping the wires:
     Why real designs need a motor controller:
 */
+
+// NOTE: MR JONES TOLD US TO IGNORE THIS BECAUSE THE KITS DO NOT HAVE THE NECESSARY COMPONENTS
+// well we could've done it in year 7 ;)
+
+
+void setup() {
+
+}
+
+void loop() {
+
+}
