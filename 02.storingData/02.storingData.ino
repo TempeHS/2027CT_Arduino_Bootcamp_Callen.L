@@ -71,6 +71,12 @@
   A local scope is used when we want to store the data temporarily.
 */
 
+String text = "hello world 123!";
+int number = 21;
+float decimal = 3.14159;
+long largeNumber = 314159256;
+bool veryImportantThing = true; // shhh.. you probably don't want to know why its true.
+
 int numberAchievementTen = 10;
 int numberCounter = 0;
 
