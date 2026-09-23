@@ -1,24 +1,5 @@
-
-
-#include "Arduino_SensorKit.h"
-
-void setup() {
-  Serial.begin(115200);
-  Accelerometer.begin();
-}
-
-void loop() {
-  Serial.print("x:");
-  Serial.print(Accelerometer.readX());
-  Serial.print("  y:");
-  Serial.print(Accelerometer.readY());
-  Serial.print("  z:");
-  Serial.println(Accelerometer.readZ());
-  delay(500);
-}
-
 /*
-  Author:
+  Author: Callen Lin
 
   Learning Intention:
   The students will use the I2C communication protocol to send data to the OLED
@@ -61,4 +42,118 @@ void loop() {
   Documentation:
     https://sensorkit.arduino.cc/
     https://www.arduino.cc/reference/en/language/functions/communication/wire/
+*/
+
+
+// MARK: ARCHIVED EXPERIMENTS BELOW
+
+/*
+// Arduino I2C Scanner
+#include <Wire.h>
+
+void setup() {
+  Wire.begin();
+  Serial.begin(115200);
+  Serial.println("Scanning the I2C bus...");
+
+  for (byte address = 1; address < 127; address++) {
+    Wire.beginTransmission(address);
+    if (Wire.endTransmission() == 0) {
+      Serial.print("Device found at address 0x");
+      Serial.println(address, HEX);
+    }
+  }
+  Serial.println("Scan complete.");
+}
+
+void loop() {
+}
+*/
+
+/*
+// OLED Display Experiment
+#include "Arduino_SensorKit.h"
+
+void setup() {
+  Oled.begin();
+  Oled.setFlipMode(true);   // sets the rotation of the screen
+}
+
+void loop() {
+  int random_value = analogRead(A0);   // read value from A0
+
+  Oled.setFont(u8x8_font_chroma48medium8_r);
+  Oled.setCursor(0, 33);      // set the coordinates
+  Oled.print("Analog Value:");
+  Oled.print(random_value);   // print the values
+  Oled.refreshDisplay();      // update the display
+  delay(1000);
+}
+*/
+
+/*
+// TEMPERATURE and HUMIDITY SENSOR experiment
+#include "Arduino_SensorKit.h"
+
+#define Environment Environment_I2C   // your kit has the DHT20 (black) sensor on I2C
+
+void setup() {
+  Wire.begin();            // the DHT20 talks over I2C
+  Serial.begin(115200);
+  Environment.begin();
+}
+
+void loop() {
+  Serial.print("Temperature = ");
+  Serial.print(Environment.readTemperature());
+  Serial.println(" C");
+  Serial.print("Humidity = ");
+  Serial.print(Environment.readHumidity());
+  Serial.println(" %");
+  delay(2000);
+}
+*/
+
+/*
+// Air Pressure Sensor experiment
+#include "Arduino_SensorKit.h"
+
+void setup() {
+  Serial.begin(115200);
+  Pressure.begin();
+}
+
+void loop() {
+  Serial.print("Temp: ");
+  Serial.print(Pressure.readTemperature());
+  Serial.println(" C");
+  Serial.print("Pressure: ");
+  Serial.print(Pressure.readPressure());
+  Serial.println(" Pa");
+  Serial.print("Altitude: ");
+  Serial.print(Pressure.readAltitude());
+  Serial.println(" m");
+  Serial.println();
+  delay(1000);
+}
+*/
+
+/*
+// 3-axis Accelerometer experiment
+#include "Arduino_SensorKit.h"
+
+void setup() {
+  Serial.begin(115200);
+  Accelerometer.begin();
+}
+
+void loop() {
+  Serial.print("x:");
+  Serial.print(Accelerometer.readX());
+  Serial.print("  y:");
+  Serial.print(Accelerometer.readY());
+  Serial.print("  z:");
+  Serial.println(Accelerometer.readZ());
+  delay(500);
+}
 */
