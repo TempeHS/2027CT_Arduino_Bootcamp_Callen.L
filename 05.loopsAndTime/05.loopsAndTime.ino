@@ -41,31 +41,62 @@ const int LED_PIN = 6;     // Grove LED on D6
 
 void setup() {
   Serial.begin(115200);
+
   pinMode(LED_PIN, OUTPUT);
   pinMode(BUZZER_PIN, OUTPUT);
   pinMode(BUTTON_PIN, INPUT);
 
-  Serial.println("Counting up:");
-  for (int i = 0; i < 10; i++) {
-    Serial.println(i);
-  }
-  Serial.println("Done!");
+  randomSeed(analogRead(A3)); // cool trick you taught me to throw a random one here.
+
+  Serial.println("Reaction Time Game!");
+  Serial.println("Get ready...");
 }
 
-unsigned long previousBlink = 0;
-const long INTERVAL = 1000;
-int ledState = LOW;
-
 void loop() {
-  unsigned long now = millis();
+  digitalWrite(LED_PIN, LOW);
 
-  if (now - previousBlink >= INTERVAL) {
-    previousBlink = now;
-    ledState = !ledState;            // flip HIGH to LOW and back
-    digitalWrite(LED_PIN, ledState);
+  Serial.println("Wait for the LED...");
+
+  delay(random(2000, 5000));
+
+  digitalWrite(LED_PIN, HIGH);
+  unsigned long startTime = millis();
+
+  while (digitalRead(BUTTON_PIN) == LOW) {
   }
 
-  if (digitalRead(BUTTON_PIN) == HIGH) {
-    Serial.println("Button pressed!");
+  unsigned long reactionTime = millis() - startTime;
+
+  digitalWrite(LED_PIN, LOW);
+
+  Serial.println("Your reaction time is: ");
+  Serial.print("Drum roll...");
+  Serial.print(reactionTime);
+  Serial.println(" ms");
+
+  if (reactionTime < 250) {
+    Serial.println("Amazing! Under 250 ms!");
+    tone(BUZZER_PIN, 1000, 200);
+    delay(250);
+    tone(BUZZER_PIN, 1500, 200);
+    delay(250);
+    tone(BUZZER_PIN, 2000, 300);
   }
+
+  delay(2000);
+
+  Serial.println();
+  Serial.println("Get ready for the next round...");
+  /*
+  // Archive
+
+  for (int pitch = 200; pitch < 1000; pitch += 10) {
+    tone(BUZZER_PIN, pitch);
+    delay(10);
+  }
+  for (int pitch = 1000; pitch > 200; pitch -= 10) {
+    tone(BUZZER_PIN, pitch);
+    delay(10);
+  }
+  */
 }
