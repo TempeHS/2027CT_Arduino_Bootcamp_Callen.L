@@ -45,19 +45,7 @@ void setup() {
   Serial.begin(115200);
 }
 
-
-int readDistance() {
-  return ultrasonic.read();
-}
-
-int classifyZone(int distance, int nearLimit, int farLimit) {
-  if (distance < nearLimit) {
-    return 0;              // danger
-  } else if (distance < farLimit) {
-    return 1;              // warning
-  }
-  return 2;                // safe
-}
+// Ignore errors in this code file 07.ultrasonicAndFunctions.ino where they undefined. locate at functions.ino
 
 void loop() {
   int distance = readDistance();
