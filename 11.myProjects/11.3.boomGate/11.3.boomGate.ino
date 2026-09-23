@@ -20,7 +20,7 @@ const int DETECTION_DISTANCE = 20;
 const int CLOSED_ANGLE = 0;
 const int OPEN_ANGLE = 90;
 
-const unsigned long CLEAR_DELAY = 1;
+const unsigned long CLEAR_DELAY = 2000;
 const unsigned long SERVO_INTERVAL = 1;
 
 Ultrasonic ultrasonic(ULTRASONIC_PIN);
@@ -152,7 +152,6 @@ void loop() {
       if (vehicleDetected) {
 
         gateState = OPEN;
-
         Serial.println("Mr Vehicle Still here? Uh. STAY OPEN!!!!");
       }
 
