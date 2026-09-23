@@ -1,11 +1,22 @@
+/*
+  Author: Callen Lin
+  Learning Intention: Students will use an ultrasonic sensor to control a servo motor
+
+  Student Notes:
+  1. Make sure you include flow chart of your logic
+  2. Students should aim to implement different logic approaches to the problem
+
+  3. Suggested Grove ports: Ultrasonic D2 (single signal pin), Servo D3
+*/
+
+// WIP
+
 #include <Servo.h>
 
 const int TRIG_PIN = 2;
 const int ECHO_PIN = 4;
 const int SERVO_PIN = 3;
 
-const int CLOSED = 90;
-const int OPEN = 180;
 const int DETECTION_DISTANCE = 20;
 
 const unsigned long DELAYER2000 = 2000;
@@ -108,14 +119,3 @@ void loop() {
 
   delay(100);
 }
-
-/*
-  Author:
-  Learning Intention: Students will use an ultrasonic sensor to control a servo motor
-
-  Student Notes:
-  1. Make sure you include flow chart of your logic
-  2. Students should aim to implement different logic approaches to the problem
-
-  3. Suggested Grove ports: Ultrasonic D2 (single signal pin), Servo D3
-*/
