@@ -20,6 +20,51 @@
     https://youtu.be/cUVryWbVkXk
 */
 
+/*
+  OOP in a Nutshell cause I won't remember while looking at the tabby cat in VS code pet :P
+
+  Class = the blueprint for objects
+    example:
+      Class: Led
+
+  Object = the thin made from that blueprint
+    example:
+      Led moduleLed(6);
+      Led builtinLed(13);
+
+  Properties: the data the object remembers
+    example:
+      pin = 6;
+      isOn = false;
+
+  Methods: things for the object to do
+    example:
+      turnOn();
+      turnOff();
+      toggle();
+
+  Constructor: runs when the object is created
+    example:
+      Led(int ledPin);
+
+  private: things that the object can not touch directly from outside the class
+    example:
+      int pin;
+      bool isOn;
+
+  public: things that the object can do from outside the class
+    example:
+      turnOn();
+      turnOff();
+      toggle();
+
+  encapsulation: keep the internal state protected behind the interface
+    example:
+      Led moduleLed(6);
+      moduleLed.turnOn();
+      // can't access moduleLed.isOn directly because it's private
+*/
+
 class Led {
   private:
     int pin;          // properties: data each Led remembers
