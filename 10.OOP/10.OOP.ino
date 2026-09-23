@@ -1,14 +1,5 @@
-
-void setup() {
-
-}
-
-void loop() {
-
-}
-
 /*
-  Author:
+  Author: Callen Lin
 
   Learning Intention:
   The students will learn about the Object Oriented Paradigm and build their own
@@ -28,3 +19,11 @@ void loop() {
     https://www.youtube.com/watch?v=S_uaROFnWSg
     https://youtu.be/cUVryWbVkXk
 */
+
+void setup() {
+
+}
+
+void loop() {
+
+}
