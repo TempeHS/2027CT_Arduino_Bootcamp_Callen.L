@@ -1,38 +1,5 @@
-const int BUTTON_PIN = 4;  // Grove Button on D4
-const int BUZZER_PIN = 5;  // Grove Buzzer on D5
-const int LED_PIN = 6;     // Grove LED on D6
-
-void setup() {
-  Serial.begin(115200);
-
-  Serial.println("Counting up:");
-  for (int i = 0; i < 10; i++) {
-    Serial.println(i);
-  }
-  Serial.println("Done!");
-}
-
-unsigned long previousBlink = 0;
-const long INTERVAL = 1000;
-int ledState = LOW;
-
-void loop() {
-  unsigned long now = millis();
-
-  if (now - previousBlink >= INTERVAL) {
-    previousBlink = now;
-    ledState = !ledState;            // flip HIGH to LOW and back
-    digitalWrite(LED_PIN, ledState);
-  }
-
-  if (digitalRead(BUTTON_PIN) == HIGH) {
-    Serial.println("Button pressed!");
-  }
-}
-
-
 /*
-  Author:
+  Author: Callen Lin
 
   Learning Intention:
   The students will apply loop logic (count, pre-test and post-test loops) and manage
@@ -66,3 +33,39 @@ void loop() {
     https://www.arduino.cc/reference/en/language/functions/time/millis/
     https://www.arduino.cc/reference/en/language/functions/random-numbers/random/
 */
+
+
+const int BUTTON_PIN = 4;  // Grove Button on D4
+const int BUZZER_PIN = 5;  // Grove Buzzer on D5
+const int LED_PIN = 6;     // Grove LED on D6
+
+void setup() {
+  Serial.begin(115200);
+  pinMode(LED_PIN, OUTPUT);
+  pinMode(BUZZER_PIN, OUTPUT);
+  pinMode(BUTTON_PIN, INPUT);
+
+  Serial.println("Counting up:");
+  for (int i = 0; i < 10; i++) {
+    Serial.println(i);
+  }
+  Serial.println("Done!");
+}
+
+unsigned long previousBlink = 0;
+const long INTERVAL = 1000;
+int ledState = LOW;
+
+void loop() {
+  unsigned long now = millis();
+
+  if (now - previousBlink >= INTERVAL) {
+    previousBlink = now;
+    ledState = !ledState;            // flip HIGH to LOW and back
+    digitalWrite(LED_PIN, ledState);
+  }
+
+  if (digitalRead(BUTTON_PIN) == HIGH) {
+    Serial.println("Button pressed!");
+  }
+}
