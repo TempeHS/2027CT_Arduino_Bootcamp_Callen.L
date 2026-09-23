@@ -1,48 +1,5 @@
-
-
-int light;
-unsigned long startTime;
-unsigned long flashTime;
-
-void setup() {
-  Serial.begin(115200);
-  pinMode(5, OUTPUT);
-  pinMode(6, OUTPUT);
-}
-
-void loop() {
-
-  light = analogRead(A3);
-
-  if (light > 410) {
-
-    if (startTime == 0) {
-      startTime = millis();
-    }
-
-    if (millis() - startTime > 10000) {
-
-      if (millis() - flashTime > 500) {
-        flashTime = millis();
-
-        digitalWrite(6, !digitalRead(6));
-        digitalWrite(5, !digitalRead(5));
-      }
-    }
-
-  }
-
-  else {
-    startTime = 0;
-    digitalWrite(5, LOW);
-    digitalWrite(6, LOW);
-  }
-
-  Serial.println(light);
-}
-
 /*
-  Author:
+  Author: Callen Lin
   Learning Intention: Students will build a monitoring system that watches
   conditions and raises alerts, like the guardian inside a smart fridge
 
@@ -71,3 +28,198 @@ void loop() {
 
   Suggested Grove ports: Light A3, Buzzer D5, LED D6
 */
+
+// Don't have enough cables for the temperature sensor, so it's not included in this version (they are commented tho) :P
+// The box only comes with 3 and all 3 are used, if there was one more open it can be used.
+
+/*
+// For the temperature and humidity sensor and OLED display
+#include "Arduino_SensorKit.h"
+#include <Wire.h>
+
+#define Environment Environment_I2C
+
+float temperature;
+float humidity;
+*/
+
+const int lightPin = A3;
+const int buzzerPin = 5;
+const int ledPin = 6;
+
+const int doorOpenThreshold = 497;
+
+const unsigned long alarmDelay = 10000;
+const unsigned long flashInterval = 250;
+const unsigned long serialInterval = 100;
+
+unsigned long doorOpenedTime = 0;
+unsigned long flashTimer = 0;
+unsigned long serialTimer = 0;
+
+bool doorIsOpen = false;
+bool alarmIsActive = false;
+bool ledIsOn = false;
+
+/*
+// For the temperature and humidity sensor and OLED display
+void readSensor() {
+  temperature = Environment.readTemperature();
+  humidity = Environment.readHumidity();
+
+  Serial.print("Temperature: ");
+  Serial.print(temperature);
+  Serial.print(" C | Humidity: ");
+  Serial.print(humidity);
+  Serial.println(" %");
+}
+
+
+void updateDisplay() {
+  Oled.setFont(u8x8_font_chroma48medium8_r);
+
+  Oled.clearDisplay();
+
+  Oled.setCursor(0, 0);
+  Oled.print("Temperature:");
+
+  Oled.setCursor(0, 1);
+  Oled.print(temperature);
+  Oled.print(" C");
+
+  Oled.setCursor(0, 3);
+  Oled.print("Humidity:");
+
+  Oled.setCursor(0, 4);
+  Oled.print(humidity);
+  Oled.print(" %");
+
+  Oled.refreshDisplay();
+}
+
+
+void checkAlert() {
+  const float TEMP_LIMIT = 30.0;
+
+  Oled.setCursor(0, 6);
+
+  if (temperature >= TEMP_LIMIT) {
+    Oled.print("!!! REALLY HOT"); // gotta add that 3 !!!.
+  } else {
+    Oled.print("Temperature OK"); // inspired by dyson's machine
+  }
+
+  Oled.refreshDisplay();
+}
+*/
+
+void setup() {
+
+  pinMode(ledPin, OUTPUT);
+  pinMode(buzzerPin, OUTPUT);
+
+  Serial.begin(115200);
+
+  Serial.println("========================================");
+  Serial.println("Starting... THE FRIDGE MONITOR™");
+  Serial.println("========================================");
+  Serial.print("THE FRIDGE MONITOR™ Door partial open threshold: ");
+  Serial.println(doorOpenThreshold);
+  Serial.println("========================================");
+
+  /*
+  // For the temperature and humidity sensor and OLED display
+  Wire.begin();
+
+  Environment.begin();
+  Oled.begin();
+  Oled.setFlipMode(true);
+  */
+}
+
+void loop() {
+
+  unsigned long currentTime = millis();
+
+  int lightLevel = analogRead(lightPin);
+
+  bool newDoorState = lightLevel > doorOpenThreshold;
+
+  /*
+  // For the temperature and humidity sensor and OLED display
+  readSensor();
+  updateDisplay();
+  checkAlert();
+
+  delay(250);
+  */
+
+  if (newDoorState != doorIsOpen) {
+
+    doorIsOpen = newDoorState;
+
+    if (doorIsOpen) {
+
+      doorOpenedTime = currentTime;
+      alarmIsActive = false;
+
+      Serial.println("Door opened.");
+
+    } else {
+
+      alarmIsActive = false;
+      ledIsOn = false;
+
+      digitalWrite(ledPin, LOW);
+      noTone(buzzerPin);
+
+      Serial.println("Door closed.");
+    }
+  }
+
+
+  if (doorIsOpen && !alarmIsActive) {
+
+    if (currentTime - doorOpenedTime >= alarmDelay) {
+
+      alarmIsActive = true;
+      flashTimer = currentTime;
+    }
+  }
+
+
+  if (alarmIsActive) {
+
+    if (currentTime - flashTimer >= flashInterval) {
+
+      flashTimer = currentTime;
+
+      ledIsOn = !ledIsOn;
+
+      digitalWrite(ledPin, ledIsOn);
+
+      if (ledIsOn) {
+        tone(buzzerPin, 1000);
+      } else {
+        noTone(buzzerPin);
+      }
+    }
+  }
+
+  if (currentTime - serialTimer >= serialInterval) {
+
+    serialTimer = currentTime;
+
+    Serial.print("light:");
+    Serial.print(lightLevel);
+
+    Serial.print("\tthreshold:");
+    Serial.print(doorOpenThreshold);
+
+    Serial.print("\tdoor:");
+    Serial.print(doorIsOpen);
+
+    Serial.print("\talarm:");
+    Serial.println(alarmIsActive);
+  }
+}
