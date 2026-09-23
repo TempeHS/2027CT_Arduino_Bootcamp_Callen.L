@@ -9,6 +9,19 @@
   I personally use camelCase over snake_case since I code quite frequently in Swift.
 */
 
+/*
+
+  SETUP AND LOOPS
+  Setup is only done once at the start of a compilation while loop is done infinitely afterwards.
+  When using more than one loop or setup, Arduino does not know which one to use meaning that it will cause a compilation error.
+
+  COMMENTS AND SERIAL MONITOR
+  Large comments are used like this one composed of //, / and * (well can't do the last one here or this breaks lol)
+  I can also print text using Serial.println (print new line) and Serial.print (print on the same line).
+
+  Commit
+*/
+
 int loopCounter = 0; // Initialize loopCounter
 
 void setup() {
