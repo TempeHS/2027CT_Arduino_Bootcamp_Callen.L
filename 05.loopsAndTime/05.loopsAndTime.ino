@@ -34,6 +34,26 @@
     https://www.arduino.cc/reference/en/language/functions/random-numbers/random/
 */
 
+/*
+  # MARK: loops and time (read below obv.)
+
+  for loops repeats from a X amount of time
+  while loops keep checking condition every time
+  do while loops always run once before remembering there was a condition
+  for-each loop can iterate every single item in an array.
+
+  micros() is similar to millis() but measures time in microseconds.
+  but (<- pun intended), im not exactly sure when you'd use it if its unless your being super precise:
+  0.000001 second = 1 microsecond
+
+  delay() blocks Arduino from doing other work while it goes for a nap.
+  millis() allow the elapsed time to be checked without being a brick wall
+*/
+
+// Blinking LED variables for millis()
+unsigned long previousBlink = 0;
+const long INTERVAL = 1000;
+int ledState = LOW;
 
 const int BUTTON_PIN = 4;  // Grove Button on D4
 const int BUZZER_PIN = 5;  // Grove Buzzer on D5
@@ -87,8 +107,10 @@ void loop() {
 
   Serial.println();
   Serial.println("Get ready for the next round...");
+
   /*
-  // Archive
+  // Archive of siren because it is pretty damn annoying.
+  // Use with caution!
 
   for (int pitch = 200; pitch < 1000; pitch += 10) {
     tone(BUZZER_PIN, pitch);
@@ -99,4 +121,21 @@ void loop() {
     delay(10);
   }
   */
+
+  /*
+  // millis() blinking LED code, excluded from the main reaction time game.
+  // Remove the comment block and comment the main reaction time game code to use this code ;P
+  unsigned long now = millis();
+
+  if (now - previousBlink >= INTERVAL) {
+    previousBlink = now;
+    ledState = !ledState;            // flip HIGH to LOW and back
+    digitalWrite(LED_PIN, ledState);
+  }
+
+  if (digitalRead(BUTTON_PIN) == HIGH) {
+    Serial.println("Button pressed!");
+  }
+  */
+
 }
