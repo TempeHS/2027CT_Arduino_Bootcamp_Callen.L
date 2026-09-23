@@ -30,6 +30,7 @@
     https://github.com/arduino-libraries/Servo  <-- We are still using this library
 */
 
+// Sneaky... I caught you writing "sweep sketches with a photo". Ahaha! Got you on IMG_0835 Large.jpeg
 
 #include <Servo.h>
 
@@ -64,3 +65,28 @@ void smoothMove(int fromAngle, int toAngle) {
     }
   }
 }
+
+/*
+//AUTOMATIC SWEEPING CODE
+//commented because the one on the top is so much more satisfying and fun.
+//to use this code, uncomment and comment the void loop above.
+
+void loop() {
+  smoothMove(0, 180);
+  smoothMove(180, 0);
+}
+
+void smoothMove(int fromAngle, int toAngle) {
+  if (fromAngle < toAngle) {
+    for (int a = fromAngle; a <= toAngle; a++) {
+      myServo.write(a);
+      delay(15);
+    }
+  } else {
+    for (int a = fromAngle; a >= toAngle; a--) {
+      myServo.write(a);
+      delay(15);
+    }
+  }
+}
+*/
