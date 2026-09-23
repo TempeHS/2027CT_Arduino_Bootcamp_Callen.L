@@ -65,6 +65,59 @@
       // can't access moduleLed.isOn directly because it's private
 */
 
+#include "Ultrasonic.h"
+
+const int LED_PIN = 6;
+
+class DistanceSensor {
+  private:
+    int pin;
+    Ultrasonic ultrasonic;
+
+  public:
+    DistanceSensor(int signalPin) : pin(signalPin), ultrasonic(signalPin) {}
+
+    void begin() {
+    }
+
+    int readCm() {
+      return ultrasonic.read();
+    }
+
+    bool isCloserThan(int limitCm) {
+      return readCm() < limitCm;
+    }
+};
+
+DistanceSensor distanceSensor(2);
+
+void setup() {
+  Serial.begin(115200);
+
+  pinMode(LED_PIN, OUTPUT);
+
+  distanceSensor.begin();
+}
+
+void loop() {
+  int distance = distanceSensor.readCm();
+
+  Serial.print("Distance: ");
+  Serial.print(distance);
+  Serial.println(" cm");
+
+  if (distanceSensor.isCloserThan(20)) {
+    digitalWrite(LED_PIN, HIGH);
+  } else {
+    digitalWrite(LED_PIN, LOW);
+  }
+
+  delay(100);
+}
+
+
+/*
+// Archive of alternating LED OOP example from before.
 class Led {
   private:
     int pin;          // properties: data each Led remembers
@@ -114,3 +167,4 @@ void loop() {
   builtinLed.toggle();
   delay(500);
 }
+*/
